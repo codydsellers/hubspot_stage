@@ -97,7 +97,7 @@ models:
           +alias: 'stg_hubspot_email_event_delivered'
         hubspot__email_event_dropped:
           +alias: 'stg_hubspot_email_event_dropped'
-       hubspot__email_event_forward:
+        hubspot__email_event_forward:
          +alias: 'stg_hubspot_email_event_forward'
         hubspot__email_event_opens:
           +alias: 'stg_hubspot_email_event_opens'
