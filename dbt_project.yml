@@ -15,9 +15,9 @@ vars:
                   'deferrals',    #Remove if you do not want metrics in final model.
                   'deliveries',   #Remove if you do not want metrics in final model.
                   'drops',        #Remove if you do not want metrics in final model.
-                  'forwards',     #Remove if you do not want metrics in final model.
+#                  'forwards',     #Remove if you do not want metrics in final model.
                   'opens',        #Remove if you do not want metrics in final model.
-                  'prints',       #Remove if you do not want metrics in final model.
+#                  'prints',       #Remove if you do not want metrics in final model.
                   'spam_reports', #Remove if you do not want metrics in final model.
                   'unsubscribes'  #Remove if you do not want metrics in final model.
                   ]
