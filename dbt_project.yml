@@ -1,0 +1,139 @@
+name: 'hubspot'
+version: '0.5.2'
+config-version: 2
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+vars:
+  hubspot:
+    
+    hubspot_email_event_forward_enabled: false
+    hubspot_email_event_print_enabled: false
+    hubspot_sales_enabled: false  
+    hubspot_engagement_enabled: false
+    email_metrics: ['bounces',      #Remove if you do not want metrics in final model.
+                  'clicks',       #Remove if you do not want metrics in final model.
+                  'deferrals',    #Remove if you do not want metrics in final model.
+                  'deliveries',   #Remove if you do not want metrics in final model.
+                  'drops',        #Remove if you do not want metrics in final model.
+                  'forwards',     #Remove if you do not want metrics in final model.
+                  'opens',        #Remove if you do not want metrics in final model.
+                  'prints',       #Remove if you do not want metrics in final model.
+                  'spam_reports', #Remove if you do not want metrics in final model.
+                  'unsubscribes'  #Remove if you do not want metrics in final model.
+                  ]
+        
+
+    contact: "{{ ref('stg_hubspot__contact') }}"
+    contact_merge_audit: "{{ ref('stg_hubspot__contact_merge_audit') }}"
+    contact_list: "{{ ref('stg_hubspot__contact_list') }}"
+    contact_list_member: "{{ ref('stg_hubspot__contact_list_member') }}"
+    contact_property_history: "{{ ref('stg_hubspot__contact_property_history') }}"
+
+    company: "{{ ref('stg_hubspot__company') }}"
+    company_property_history: "{{ ref('stg_hubspot__company_property_history') }}"
+
+    deal: "{{ ref('stg_hubspot__deal') }}"
+    deal_stage: "{{ ref('stg_hubspot__deal_stage') }}"
+    deal_company: "{{ ref('stg_hubspot__deal_company') }}"
+    deal_pipeline: "{{ ref('stg_hubspot__deal_pipeline') }}"
+    deal_pipeline_stage: "{{ ref('stg_hubspot__deal_pipeline_stage') }}"
+    deal_property_history: "{{ ref('stg_hubspot__deal_property_history') }}"
+
+    owner: "{{ ref('stg_hubspot__owner') }}"
+
+    email_event_bounce: "{{ ref('stg_hubspot__email_event_bounce') }}"
+    email_event_click: "{{ ref('stg_hubspot__email_event_click') }}"
+    email_event_deferred: "{{ ref('stg_hubspot__email_event_deferred') }}"
+    email_event_delivered: "{{ ref('stg_hubspot__email_event_delivered') }}"
+    email_event_dropped: "{{ ref('stg_hubspot__email_event_dropped') }}"
+    email_event_forward: "{{ ref('stg_hubspot__email_event_forward') }}"
+    email_event_open: "{{ ref('stg_hubspot__email_event_open') }}"
+    email_event_print: "{{ ref('stg_hubspot__email_event_print') }}"
+    email_event_sent: "{{ ref('stg_hubspot__email_event_sent') }}"
+    email_event_spam_report: "{{ ref('stg_hubspot__email_event_spam_report') }}"
+    email_event_status_change: "{{ ref('stg_hubspot__email_event_status_change') }}"
+    email_event: "{{ ref('stg_hubspot__email_event') }}"
+
+    engagement: "{{ ref('stg_hubspot__engagement') }}"
+    engagement_call: "{{ ref('stg_hubspot__engagement_call') }}"
+    engagement_company: "{{ ref('stg_hubspot__engagement_company') }}"
+    engagement_contact: "{{ ref('stg_hubspot__engagement_contact') }}"
+    engagement_deal: "{{ ref('stg_hubspot__engagement_deal') }}"
+    engagement_email_cc: "{{ ref('stg_hubspot__engagement_email_cc') }}"
+    engagement_email_to: "{{ ref('stg_hubspot__engagement_email_to') }}"
+    engagement_email: "{{ ref('stg_hubspot__engagement_email') }}"
+    engagement_meeting: "{{ ref('stg_hubspot__engagement_meeting') }}"
+    engagement_note: "{{ ref('stg_hubspot__engagement_note') }}"
+    engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
+
+    email_metrics: ['bounces', 'clicks', 'deferrals', 'deliveries', 'drops', 'forwards', 'opens', 'prints', 'spam_reports', 'unsubscribes']
+
+    #Contact Merge Audit Enable Variable
+    hubspot_contact_merge_audit_enabled: false
+
+models:
+  hubspot:
+    +materialized: table
+    +schema: hubspot
+    marketing:
+      intermediate:
+        +materialized: ephemeral
+      hubspot__contact_lists:
+        +alias: 'stg_hubspot_contact_lists'
+      hubspot__contacts:
+        +alias: 'stg_hubspot_contacts'
+      hubspot__email_campaigns:
+        +alias: 'stg_hubspot_email_campaigns'
+      hubspot__email_sends:
+        +alias: 'stg_hubspot_email_sends'
+      email_events:
+        hubspot__email_event_bounce:
+          +alias: 'stg_hubspot_email_event_bounce'
+        hubspot__email_event_clicks:
+          +alias: 'stg_hubspot_email_event_clicks'
+        hubspot__email_event_deferred:
+          +alias: 'stg_hubspot_email_event_deferred'
+        hubspot__email_event_delivered:
+          +alias: 'stg_hubspot_email_event_delivered'
+        hubspot__email_event_dropped:
+          +alias: 'stg_hubspot_email_event_dropped'
+       hubspot__email_event_forward:
+         +alias: 'stg_hubspot_email_event_forward'
+        hubspot__email_event_opens:
+          +alias: 'stg_hubspot_email_event_opens'
+        hubspot__email_event_print:
+          +alias: 'stg_hubspot_email_event_print'
+        hubspot__email_event_sent:
+          +alias: 'stg_hubspot_email_event_sent'
+        hubspot__email_event_spam_report:
+          +alias: 'stg_hubspot_email_event_spam_report'
+        hubspot__email_event_status_change:
+          +alias: 'stg_hubspot_email_event_status_change'
+      history:
+        hubspot__contact_history:
+          +alias: 'stg_hubspot_contact_history'
+    sales:
+      enagement_events:
+        hubspot__engagement_calls:
+          +alias: 'stg_hubspot_engagement_calls'
+        hubspot__engagement_emails:
+          +alias: 'stg_hubspot_engagement_emails'
+        hubspot__engagement_meetings:
+          +alias: 'stg_hubspot_engagement_meetings'
+        hubspot__engagement_notes:
+          +alias: 'stg_hubspot_engagement_notes'
+        hubspot__engagement_tasks:
+          +alias: 'stg_hubspot_engagement_tasks'
+      history:
+        hubspot__company_history:
+          +alias: 'stg_hubspot_company_history'
+        hubspot__deal_history:
+          +alias: 'stg_hubspot_deal_history'
+      hubspot__companies:
+        +alias: 'stg_hubspot_companies'
+      hubspot__deal_stages:
+        +alias: 'stg_hubspot_deals'
+      hubspot__engagments:
+        +alias: 'stg_hubspot_engagments'
+      intermediate:
+        +materialized: ephemeral
