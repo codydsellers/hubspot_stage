@@ -74,7 +74,7 @@ vars:
 models:
   hubspot:
     +materialized: table
-    +schema: hubspot
+#    +schema: hubspot
     marketing:
       intermediate:
         +materialized: ephemeral
