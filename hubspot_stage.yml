@@ -5,7 +5,7 @@ require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 vars:
   hubspot:
-    
+  
     hubspot_email_event_forward_enabled: false
     hubspot_email_event_print_enabled: false
     hubspot_sales_enabled: false  
