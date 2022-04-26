@@ -11,6 +11,11 @@ with campaigns as (
     select *
     from {{ ref('hubspot__email_sends') }}
 
+), marketing_emails as (
+
+    select *
+    from {{ var('marketing_email') }}
+
 ), email_metrics as (
 
     select 
@@ -32,9 +37,11 @@ with campaigns as (
         coalesce(email_metrics.total_unique_{{ metric }}, 0) as total_unique_{{ metric }}
         {% if not loop.last %},{% endif %}
         {% endfor %}
+        ,marketing_emails.publish_date
     from campaigns
     left join email_metrics
         on campaigns.email_campaign_id = email_metrics.email_campaign_id
+    left join marketing_emails on campaigns.content_id = marketing_emails.id
 
 )
 
