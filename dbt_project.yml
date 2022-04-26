@@ -53,6 +53,7 @@ vars:
     email_event_spam_report: "{{ ref('stg_hubspot__email_event_spam_report') }}"
     email_event_status_change: "{{ ref('stg_hubspot__email_event_status_change') }}"
     email_event: "{{ ref('stg_hubspot__email_event') }}"
+    marketing_email: "{{ source('hubspot','marketing_email') }}" 
 
     engagement: "{{ ref('stg_hubspot__engagement') }}"
     engagement_call: "{{ ref('stg_hubspot__engagement_call') }}"
@@ -108,7 +109,7 @@ models:
         hubspot__email_event_spam_report:
           +alias: 'stg_hubspot_email_event_spam_report'
         hubspot__email_event_status_change:
-          +alias: 'stg_hubspot_email_event_status_change'
+          +alias: 'stg_hubspot_email_event_status_change'     
       history:
         hubspot__contact_history:
           +alias: 'stg_hubspot_contact_history'
