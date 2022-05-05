@@ -1,2 +1,2 @@
 packages:
-  - git: "https://github.com/codydsellers/dbt_hubspot_raw.git"
+  - git: "https://github.com/oysterhr/dbt_hubspot_raw.git"
