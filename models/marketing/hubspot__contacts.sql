@@ -83,5 +83,6 @@ from email_joined
 
 select *
 from contacts
+where email not like 'oyster'
 
 {% endif %}
